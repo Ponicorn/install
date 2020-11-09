@@ -1,0 +1,56 @@
+! X11
+Xcursor.size: 16
+
+! Cleaning
+Xft.antialias: 1
+Xft.autohint: 1
+Xft.hintstyle: hintslight
+
+! Colors
+#define Black    #0a0a0a
+#define Red      #ff7675
+#define Green    #00b894
+#define Yellow   #ffeaa7
+#define Blue     #74b9ff
+#define Magenta  #fd79a8
+#define Cyan     #00cec9
+#define White    #dfe6e9
+
+#define BlackB   #0a0a0a
+#define RedB     #ff7675
+#define GreenB   #00b894
+#define YellowB  #ffeaa7
+#define BlueB    #74b9ff
+#define MagentaB #fd79a8
+#define CyanB    #00cec9
+#define WhiteB   #dfe6e9
+
+! UXTerm
+UXTerm*FaceName: Fira Code
+UXTerm*FaceSize: 10
+
+UXTerm*VT100.charClass: 33:48,35:48,37:48,42:48,45-47:48,64:48,95:48,126:48
+
+UXTerm*BorderWidth: 0
+UXTerm*internalBorder: 2
+
+UXTerm*Background: Black
+UXTerm*Foreground: White
+
+UXTerm*Color0:  Black
+UXTerm*Color1:  Red
+UXTerm*Color2:  Green
+UXTerm*Color3:  Yellow
+UXTerm*Color4:  Blue
+UXTerm*Color5:  Magenta
+UXTerm*Color6:  Cyan
+UXTerm*Color7:  White
+
+UXTerm*Color8:  BlackB
+UXTerm*Color9:  RedB
+UXTerm*Color10: GreenB
+UXTerm*Color11: YellowB
+UXTerm*Color12: BlueB
+UXTerm*Color13: MagentaB
+UXTerm*Color14: CyanB
+UXTerm*Color15: WhiteB
