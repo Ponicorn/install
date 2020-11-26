@@ -148,13 +148,15 @@ bindsym $mod+r mode "resize"
 # }
 
 # colors
-set $mains  #fab1a0
-set $dark   #2d3436
-set $danger #d63031
+# set $mains  #fab1a0
+set_from_resource $mains  Color5 #000000
+set_from_resource $dark   Color0 #000000
+set_from_resource $danger Color2 #000000
 
 # bar
 bar {
     status_command i3status
+    #status_command i3blocks
     colors {
         background $dark
         statusline $mains
@@ -169,5 +171,30 @@ bar {
 }
 
 # Border
-client.focused          $mains $mains $dark  #2e9ef4 $mains
-client.unfocused        $dark  $dark  $mains #2e9ef4 $dark
+# client.focused          $mains $mains $dark  $mains $mains
+# client.unfocused        $dark  $dark  $mains $dark $dark
+client.focused          $mains $mains $dark  $mains $mains
+client.unfocused        $dark  $dark  $mains $dark $dark
+client.focused_inactive $dark  $dark  $mains $dark $dark
+# screenshot tout l'ecran
+bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' 
+
+# screenshot active appli
+bindsym --release Alt+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' 
+
+# workspace next & previous
+bindsym $mod+Prior workspace prev
+bindsym $mod+Next workspace next
+
+# https://github.com/ValveSoftware/steam-for-linux/issues/1040
+for_window [class="^Steam$" title="^Friends$"] floating enable
+for_window [class="^Steam$" title="Steam - News"] floating enable
+for_window [class="^Steam$" title=".* - Chat"] floating enable
+for_window [class="^Steam$" title="^Settings$"] floating enable
+for_window [class="^Steam$" title=".* - event started"] floating enable
+for_window [class="^Steam$" title=".* CD key"] floating enable
+for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
+for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
+for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
+for_window [title="^Steam Keyboard$"] floating enable
+

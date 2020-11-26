@@ -1,0 +1,17 @@
+! OutRun theme
+#define Black    #21222C
+#define Red      #FF5555
+#define Green    #50FA7B
+#define Yellow   #F1FA8C
+#define Blue     #BD93F9
+#define Magenta  #FF79C6
+#define Cyan     #8BE9FD
+#define White    #F8F8F2
+#define BlackB   #6272A4
+#define RedB     #FF6E6E
+#define GreenB   #69FF94
+#define YellowB  #FFFFA5
+#define BlueB    #D6ACFF
+#define MagentaB #FF92DF
+#define CyanB    #A4FFFF
+#define WhiteB   #FFFFFF

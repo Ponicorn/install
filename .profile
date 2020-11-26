@@ -20,3 +20,4 @@ fi
 setterm -blength 0
 
 export EDITOR='/usr/bin/vim'
+export TERMINAL='lxterm'

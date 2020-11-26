@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# bell is  hell
+xset b off
+
+# colorzzz
+xrdb ~/.Xresources &
+
+# screen saver off
+xset s off
+xset -dpms
+xset s noblank
+
+# background
+xsetroot -solid "#21222C"
+
+# gettint those sweet layout
+setxkbmap -layout "us" -variant "qwerty-fr"
+                                                                                            
+# coton eye bro
+redshift &
+
+# start i3
+# exec i3

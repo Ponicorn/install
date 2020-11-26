@@ -1,6 +1,6 @@
 # shameless copy and credit to ttyb0
 # .bashrc file
-
+setterm blength 0
 # colors
 BLK='\[\033[00;30m\]'
 RED='\[\033[00;31m\]'
@@ -61,3 +61,5 @@ if ! shopt -oq posix; then
         . /etc/bash_completion
     fi
 fi
+
+export EDITOR='/usr/bin/vim'

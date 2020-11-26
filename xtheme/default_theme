@@ -1,0 +1,19 @@
+! Default theme
+
+#define Black    #0a0a0a
+#define Red      #cf000f
+#define Green    #00b894
+#define Yellow   #ffeaa7
+#define Blue     #1e8bc3
+#define Magenta  #fab1a0
+#define Cyan     #00cec9
+#define White    #dfe6e9
+#define BlackB   #0a0a0a
+#define RedB     Red
+#define GreenB   #00b894
+#define YellowB  #ffeaa7
+#define BlueB    Blue
+#define MagentaB Magenta
+#define CyanB    #00cec9
+#define WhiteB   #dfe6e9
+

@@ -1,0 +1,17 @@
+! Monokai theme
+#define Black    #272822
+#define Red      #383830
+#define Green    #49483e
+#define Yellow   #75715e
+#define Blue     #a59f85
+#define Magenta  #f8f8f2
+#define Cyan     #f5f4f1
+#define White    #f9f8f5
+#define BlackB   #f92672
+#define RedB     #fd971f
+#define GreenB   #f4bf75
+#define YellowB  #a6e22e
+#define BlueB    #a1efe4
+#define MagentaB #66d9ef
+#define CyanB    #ae81ff
+#define WhiteB   #cc6633
