@@ -16,8 +16,12 @@ if [ -d "/sbin" ] ; then
     PATH="$PATH:/sbin"
 fi
 
+if [ "$(tty)" = "/dev/tty1" ]; then
+    exec sway
+fi 
+
 # no bell no hell
-setterm blength 0
+setterm -blength 0
 
 export EDITOR='/usr/bin/vim'
-export TERMINAL='lxterm'
+export TERMINAL='urxvt'
