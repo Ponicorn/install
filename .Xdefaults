@@ -19,7 +19,7 @@
 # URxvt Terminal
 URxvt*background: #21222c
 URxvt*foreground: #f8f8f2
-URxvt*font: xft:firacode:size=8
+URxvt*font: xft:firacode:size=10
 URxvt*scrollBar: false
 URxvt*internalBorder: 8
 URxvt*urlLauncher: firefox

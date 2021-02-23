@@ -14,7 +14,7 @@ general {
     color_bad       = '#e17055'
 }
 
-order += "disk /"
+order += "disk /home"
 order += "cpu_usage"
 order += "cpu_temperature 0"
 order += "volume master"
@@ -51,7 +51,7 @@ cpu_temperature 0 {
 }
 
 
-disk "/" {
+disk "/home" {
     format = "%avail"
     separator_block_width = 12
 }

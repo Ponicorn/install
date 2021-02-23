@@ -30,6 +30,16 @@ XTerm*internalBorder: 2
 XTerm*Background: Black
 XTerm*Foreground: White
 
+! URxvt
+URxvt*FaceName: Fira Code
+URxvt*FaceSize: 10
+URxvt*VT100.charClass: 33:48,35:48,37:48,42:48,45-47:48,64:48,95:48,126:48
+URxvt*BorderWidth: 0
+URxvt*internalBorder: 8
+URxvt*Background: Black
+URxvt*Foreground: White
+URxvt*visualBell: false
+
 
 *Color0:  Black
 *Color1:  Red

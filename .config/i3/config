@@ -8,7 +8,8 @@ font pango:Fira Code 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 bindsym $mod+q kill
@@ -183,8 +184,10 @@ bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~
 bindsym --release Alt+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' 
 
 # workspace next & previous
-bindsym $mod+Prior workspace prev
-bindsym $mod+Next workspace next
+#bindsym $mod+Prior workspace prev
+bindsym $mod+Control+Left workspace prev
+#bindsym $mod+Next workspace next
+bindsym $mod+Control+Right workspace next
 
 # https://github.com/ValveSoftware/steam-for-linux/issues/1040
 for_window [class="^Steam$" title="^Friends$"] floating enable
@@ -197,4 +200,8 @@ for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
 for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
 for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
 for_window [title="^Steam Keyboard$"] floating enable
+
+# Volume control
+bindsym $mod+Prior exec amixer set Master 5%+
+bindsym $mod+Next  exec amixer set Master 5%-
 
