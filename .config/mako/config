@@ -1,0 +1,18 @@
+sort=-time
+layer=overlay
+background-color=#21222c
+border-size=4
+border-color=#ff79c6
+icons=0
+max-icon-size=64
+ignore-timeout=1
+font=fira 12
+
+[urgency=low]
+
+[urgency=normal]
+border-color=#50fa7b
+
+[urgency=high]
+default-timeout=0
+

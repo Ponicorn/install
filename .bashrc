@@ -62,4 +62,13 @@ if ! shopt -oq posix; then
     fi
 fi
 
+# alias docker
+alias dcomp='docker compose'
+alias docker-compose='docker compose'
+alias dexec='docker compose exec'
+
 export EDITOR='/usr/bin/vim'
+
+if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+  exec sway
+fi

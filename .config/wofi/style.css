@@ -1,0 +1,48 @@
+window {
+    margin: 5px;
+    border: 2px solid #ff79c6;
+    background-color: #21222c;
+    color: #f8f8f2;
+}
+* { outline-style: none }
+#input {
+    margin: 5px;
+    border: 2px solid #21222c;
+    background-color: #21222c;
+}
+
+#inner-box {
+    margin: 5px;
+    border: 2px solid #21222c;
+    background-color: #21222c;
+}
+
+#outer-box {
+    margin: 5px;
+    border: 2px solid #21222c;
+    background-color: #21222c;
+}
+
+#scroll {
+    margin: 5px;
+    border: 2px solid #21222c;
+    background-color: #21222c;
+}
+
+#text {
+    margin: 5px;
+}
+
+#entry {
+    margin: 5px;
+    border: 2px solid #21222c;
+    background-color: #21222c;
+} 
+
+#entry:selected {
+    margin: 5px;
+    border: 2px solid #f8f8f2;
+    outline: none;
+    background-color #ff79c6;
+}
+

@@ -3,21 +3,52 @@
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 # Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
+# set $left h
+# set $down j
+# set $up k
+# set $right l
+
 # Your preferred terminal emulator
 set $term urxvt
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu wofi --show run
 
 include /etc/sway/config-vars.d/*
 
+#fonts
+font pango:Fira Code 8 
+#gaps inner 12
+
+#input mais en fait output
+set $laptop eDP-1
+#set $gauche DP-3
+set $gauche DP-2
+set $droite DP-4
+bindswitch lid:on output $laptop disable
+bindswitch lid:off output $laptop enable
+
 #output
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg /home/ponicorn/Pictures/cerf.jpg fill 
+output $gauche res 1920x1080@60.000000Hz pos 0 0  
+output $droite res 1920x1080@74.973000Hz pos 1920 0
+output $laptop pos 3840 0
+
+#workspace organisation
+workspace 1 output $gauche
+workspace 3 output $gauche
+workspace 5 output $gauche
+workspace 7 output $gauche
+
+workspace 2 output $droite
+workspace 4 output $droite
+workspace 6 output $droite
+workspace 8 output $droite
+
+
 
 #input 
 input type:keyboard {
@@ -49,26 +80,17 @@ floating_modifier $mod normal
 bindsym $mod+Shift+r reload
 
 # Exit sway (logs you out of your Wayland session)
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+#bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+e exec swaymsg exit
 #
 # Moving around:
 #
-    # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
     # Or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
-    # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
     # Ditto, with arrow keys
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
@@ -142,15 +164,6 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. 
 # Resizing containers:
 #
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-
     # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
@@ -194,12 +207,21 @@ bar {
     }
 }
 
-client.focused          $mains $mains $dark  $mains $mains
-client.unfocused        $dark  $dark  $mains $dark $dark
-client.focused_inactive $dark  $dark  $mains $dark $dark
+client.focused          $mains  $mains  $dark  $mains  $mains
+client.urgent           $danger $danger $dark  $danger $danger
+client.unfocused        $dark   $dark   $mains $dark   $dark
+client.focused_inactive $dark   $dark   $mains $dark   $dark
 # Volume control
 bindsym $mod+Prior exec amixer set Master 5%+
 bindsym $mod+Next  exec amixer set Master 5%-
 
+# le dessert
+exec /usr/bin/gammastep
+exec mako
+
+# swaylock
+set $lock_bg ~/Pictures/viaevistouchbg/viaevista_bleu.png
+bindsym $mod+l exec swaylock -i $lock_bg
 
 include /etc/sway/config.d/*
+
