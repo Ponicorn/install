@@ -1,0 +1,239 @@
+#!/bin/sh
+#===============================================================================
+#|
+#| DESCRIPTION
+#|
+#|   Surcouche de la commande xfreerdp.
+#|
+#| UTILISATION
+#|
+#|   rdp [options] <host>
+#|
+#| PARAMÈTRES
+#|
+#|   host : Nom d'hôte de la machine distante.
+#|
+#| OPTIONS
+#|
+#|   -h : Affiche cette aide.
+#|   -l : Écrit tous les messages dans un fichier.
+#|   -q : Désactive l'affichage de tous les messages.
+#|   -s : Affichage avec une taille statique.
+#|   -u <user> : Nom de l'utilisateur distant.
+#|   -v : Active l'affichage des messages d'information.
+#|
+#===============================================================================
+
+#===============================================================================
+# Options
+#===============================================================================
+
+# initialisation des options avec une valeur par défaut
+OPT_LOG=false
+OPT_QUIET=false
+OPT_VERBOSE=false
+
+#===============================================================================
+# Variables
+#===============================================================================
+
+# séparateur de nouvelle ligne
+NLS="
+"
+
+# fichier de log
+LOG_DIR="$(dirname ${0})"
+LOG_NAME="$(basename ${0})_$(date +'%Y%m%d%H%M%S').log"
+LOG_FILE="${LOG_DIR}/${LOG_NAME}"
+
+# codes d'erreurs
+EC_OPT=1 # Vérification des options.
+EC_PAR=2 # Vérification des paramètres.
+EC_EXE=3 # Exécution.
+
+# rdp
+BIN_RDP="xfreerdp"
+
+# modificateurs pour la taille de la fenêtre
+WIN_SIZE_MOD_W=4
+WIN_SIZE_MOD_H=47
+
+# répertoire partagé
+SHARE_NAME="HOME-RDP"
+SHARE_DIR="${HOME}/RDP"
+
+# initialisation du code d'état à 0
+STATUS_CODE=0
+
+#===============================================================================
+# Fonctions
+#===============================================================================
+
+# Fonction d'affichage de l'aide
+usage() {
+    grep -e '^#|' $0 | sed 's/^#|//'
+}
+
+# Fonction de récupération des arguments
+getArgs() {
+
+    # récupération des options
+    while getopts 'hlqsu:v' opt
+    do
+        case $opt in
+            h) STATUS_CODE=$EC_OPT ;;
+            l) OPT_LOG=true ;;
+            q) OPT_QUIET=true ;;
+            s) OPT_SIZE=true ;;
+            u) OPT_USER=$OPTARG ;;
+            v) OPT_VERBOSE=true ;;
+            *) STATUS_CODE=$EC_OPT ;;
+        esac
+    done
+
+    # récupération des paramètres
+    shift $(($OPTIND - 1))
+    if [ $# -eq 1 ]
+    then
+        PAR_HOST=$1
+    else
+        STATUS_CODE=$EC_OPT
+    fi
+
+    # vérification
+    test $STATUS_CODE -ne 0 && usage
+}
+
+# Fonction de vérification l'état d'une commande
+# $1 : code retour à vérifier
+# $2 : code à retourner en cas d'erreur
+# $3 : message
+checkStatus() {
+    if [ "$1" -eq 0 ]
+    then
+        msg inf "${3} : ok."
+    else
+        msg err "${3} : KO !"
+        STATUS_CODE=$2
+    fi
+}
+
+# Fonction d'affichage des messages
+# $1 : niveau du message (inf, war, err)
+# $2 : message
+msg() {
+    # paramètres
+    level=$1
+    message=$2
+
+    # horodatage
+    hd=$(date +'%Y-%m-%d %H:%M:%S')
+
+    # niveau du message
+    case $level in
+        inf) lvl="inf" ;;
+        war) lvl="War" ;;
+        err) lvl="ERR" ;;
+        *)   lvl="???" ;;
+    esac
+
+    # gestion du message
+    IFS=$NLS
+    for line in $message
+    do
+        # construction du message
+        mesg="${hd} ${lvl} ${line}"
+
+        # affichage du message
+        case $level in
+            inf) [ $OPT_QUIET = false ] && [ $OPT_VERBOSE = true ] \
+                     && printf '%s\n' "$mesg" ;;
+            war) [ $OPT_QUIET = false ] \
+                     && printf '%s\n' "$mesg" ;;
+            err) printf '%s\n' "$mesg" ;;
+            *)   printf '%s\n' "$mesg" ;;
+        esac
+
+        # impression du message
+        [ $OPT_LOG = true ] && printf '%s\n' "$mesg" >> $LOG_FILE
+    done
+}
+
+# fonction d'exécution d'un programme
+run() {
+    # exécution
+    output=$("$@" 2>&1)
+    STATUS_CODE=$?
+
+    # affichage des messages
+    IFS=$NLS
+    for line in $output
+    do
+        msg inf "$line"
+    done
+}
+
+#===============================================================================
+# Traitement
+#===============================================================================
+
+main() {
+
+    # récupération des arguments
+    getArgs "$@"
+
+    if [ $STATUS_CODE -eq 0 ]
+    then
+
+        # commande rdp
+        cmd_rdp="${BIN_RDP} /v:${PAR_HOST}"
+        cmd_rdp="${cmd_rdp} /dynamic-resolution"
+        cmd_rdp="${cmd_rdp} /cert-tofu"
+
+        # utilisateur
+        if [ -z "$OPT_USER" ]
+        then
+            cmd_rdp="${cmd_rdp} /u:${USER} /sec:rdp"
+        else
+            cmd_rdp="${cmd_rdp} /u:${OPT_USER}"
+        fi
+
+        # partage
+        if [ -d "$SHARE_DIR" ]
+        then
+            cmd_rdp="${cmd_rdp} /drive:${SHARE_NAME},${SHARE_DIR}"
+        else
+            cmd_rdp="${cmd_rdp} +home-drive"
+        fi
+
+        # taille statique de la fenêtre
+        if [ "$OPT_SIZE" = true ]
+        then
+            WIN_SIZE_INI_W=$(xrandr -q | grep 'primary' | \
+                                 cut -d' ' -f4 | \
+                                 cut -d'+' -f1 | \
+                                 cut -d'x' -f1   \
+                          )
+            WIN_SIZE_INI_H=$(xrandr -q | grep 'primary' | \
+                                 cut -d' ' -f4 | \
+                                 cut -d'+' -f1 | \
+                                 cut -d'x' -f2   \
+                          )
+            WIN_SIZE_W=$(($WIN_SIZE_INI_W-$WIN_SIZE_MOD_W))
+            WIN_SIZE_H=$(($WIN_SIZE_INI_H-$WIN_SIZE_MOD_H))
+            cmd_rdp="${cmd_rdp} /size:${WIN_SIZE_W}x${WIN_SIZE_H}"
+        fi
+
+        # exécution de la commande
+        run $cmd_rdp
+    fi
+
+    # exit
+    exit $STATUS_CODE
+}
+
+#===============================================================================
+# Exécution
+#===============================================================================
+
+main "$@"
