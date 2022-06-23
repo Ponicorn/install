@@ -1,4 +1,4 @@
-! OutRun theme
+!nord theme
 #define nord0 #2E3440
 #define nord1 #3B4252
 #define nord2 #434C5E
@@ -16,19 +16,25 @@
 #define nord14 #A3BE8C
 #define nord15 #B48EAD
 
-#define Black    nord1
-#define Red      nord11
-#define Green    nord14
-#define Yellow   nord13
-#define Blue     nord9
-#define Magenta  nord15
-#define Cyan     nord8
-#define White    nord5
-#define BlackB   nord3
-#define RedB     nord11
-#define GreenB   nord14
-#define YellowB  nord13
-#define BlueB    nord9
-#define MagentaB nord15
-#define CyanB    nord7
-#define WhiteB   nord6
+*.foreground:   nord4
+*.background:   nord0
+*.cursorColor:  nord4
+*fading: 35
+*fadeColor: nord3
+
+*.color0: nord1
+*.color1: nord11
+*.color2: nord14
+*.color3: nord13
+*.color4: nord9
+*.color5: nord15
+*.color6: nord8
+*.color7: nord5
+*.color8: nord3
+*.color9: nord11
+*.color10: nord14
+*.color11: nord13
+*.color12: nord9
+*.color13: nord15
+*.color14: nord7
+*.color15: nord6

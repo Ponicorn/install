@@ -1,4 +1,4 @@
-# shameless copy and credit to ttyb0
+# shameless copy and credit to ttyb
 # .bashrc file
 setterm blength 0
 # colors
@@ -44,6 +44,11 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
 # xtrem things
 case "$TERM" in
     xterm*|rxvt*)
@@ -62,12 +67,40 @@ if ! shopt -oq posix; then
     fi
 fi
 
+#eval `keychain --agents ssh --eval id_rsa`
+#eval `keychain --agents ssh --eval csauder.key`
+SSH_ENV="$HOME/.ssh/agent-environment"
+function start_agent {
+    echo "Initializing new SSH agent..."
+    touch $SSH_ENV
+    chmod 600 "${SSH_ENV}"
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' >> "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add
+    /usr/bin/ssh-add ~/.ssh/csauder.key
+}
+# Source SSH settings, if applicable
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    kill -0 $SSH_AGENT_PID 2>/dev/null || {
+        start_agent
+    }
+else
+    start_agent
+fi
+
+
+
+
 # alias docker
 alias dcomp='docker compose'
 alias docker-compose='docker compose'
 alias dexec='docker compose exec'
-
+alias drun='docker compose run'
+alias connpretup='wlfreerdp /u:viaevista_csauder /p:38sNXtb92W /v:145.239.97.135 /dynamic-resolution'
 export EDITOR='/usr/bin/vim'
+export _JAVA_AWT_WM_NONREPARENTING=1
+#export MOZ_ENABLE_WAYLAND=1
 
 if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
   exec sway

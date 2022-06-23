@@ -20,5 +20,8 @@ setxkbmap -layout "us" -variant "qwerty-fr"
 # coton eye bro
 redshift &
 
+# touchpad truc (et le nom il est rigolo)
+touchegg &
+
 # start i3
 # exec i3

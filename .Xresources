@@ -1,8 +1,8 @@
 ! import color scheme
 !#include "/home/ponicorn/xtheme/default_theme"
 !#include "/home/ponicorn/xtheme/monokai_theme"
-#include "/home/ponicorn/xtheme/outrun_theme"
-!#include "/home/ponicorn/xtheme/nord_theme"
+!#include "/home/ponicorn/xtheme/outrun_theme"
+#include "/home/ponicorn/xtheme/nord_theme"
 
 ! X11
 Xcursor.size: 16
@@ -29,6 +29,9 @@ XTerm*BorderWidth: 0
 XTerm*internalBorder: 2
 XTerm*Background: Black
 XTerm*Foreground: White
+xterm*background: black
+xterm*foreground: lightgray
+
 
 ! URxvt
 URxvt*FaceName: Fira Code
@@ -39,6 +42,7 @@ URxvt*internalBorder: 8
 URxvt*Background: Black
 URxvt*Foreground: White
 URxvt*visualBell: false
+URxvt*fonts: xft:Noto Color Emoji
 
 
 *Color0:  Black
@@ -57,3 +61,4 @@ URxvt*visualBell: false
 *Color13: MagentaB
 *Color14: CyanB
 *Color15: WhiteB
+

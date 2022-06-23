@@ -23,3 +23,11 @@ URxvt*font: xft:firacode:size=10
 URxvt*scrollBar: false
 URxvt*internalBorder: 8
 URxvt*urlLauncher: firefox
+
+# URxvt Terminal
+*background: #21222c
+*foreground: #f8f8f2
+*font: xft:firacode:size=10
+*scrollBar: false
+*internalBorder: 8
+*urlLauncher: firefox
